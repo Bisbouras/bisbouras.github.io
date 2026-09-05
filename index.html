@@ -1,56 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Christos Enotiadis</title>
-<style>
-body { max-width: 720px; margin: 3em auto; padding: 0 1em; line-height: 1.5; }
-img { max-width: 100%; }
-.links a { margin-right: 1em; }
-.project { margin-bottom: 2.5em; }
-.meta { color: #666; }
-</style>
+<meta name="description" content="Game developer. Gameplay and engine programming in Unreal Engine 5 and C++.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Expanded:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h1>Christos Enotiadis</h1>
-<p>Game developer. CS at UCSD, finishing December 2026. Previously gameplay programming at Couch Heroes in Unreal Engine 5. Looking for a full time engine or gameplay role starting January 2027.</p>
+<div class="gutter gutter-left" aria-hidden="true"></div>
+<div class="gutter gutter-right" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<p class="links">
-<a href="cv.pdf">CV</a>
-<a href="https://github.com/Bisbouras">GitHub</a>
-<a href="https://linkedin.com/in/christos-enotiadis">LinkedIn</a>
-</p>
+<main>
 
-<hr>
+  <header class="intro">
+    <div class="nameplate">
+      <h1><span>Christos</span><span>Enotiadis</span></h1>
+      <p class="handle" aria-hidden="true">Bisbo</p>
+      <p class="catchline">Game developer. Gameplay and engine programming, mostly Unreal Engine 5 and C++.</p>
+    </div>
 
-<h2>Projects</h2>
+    <figure class="portrait">
+      <img src="me.jpg" alt="Christos Enotiadis">
+    </figure>
+  </header>
 
-<div class="project">
-<h3><a href="cse168-final/">Volumetric Path Tracing</a></h3>
-<p class="meta">C++, OpenMP · 2026</p>
-<p><a href="cse168-final/"><img src="cse168-final/hero_4096.png" alt="Light shafts through a window into a foggy room" width="480"></a></p>
-<p>A physically based renderer extended to support participating media. Homogeneous scattering with free flight sampling, the Henyey-Greenstein phase function, and multiple importance sampling at scattering vertices. Full writeup with implementation details and comparison renders.</p>
-</div>
+  <p class="bio">
+    Hey, I'm Chris, or Bisbo. I'm a 22 year old game dev from Athens, Greece, currently studying at UCSD. I like to write music & poetry, paraglide, and play video games. (obviously)
+  </p>
 
-<div class="project">
-<h3>Multi-Router IPv4 Data Plane</h3>
-<p class="meta">C · 2026</p>
-<p>The forwarding plane of a four router network handling raw Ethernet frames on an emulated Mininet topology. Longest prefix match routing, a thread safe ARP cache with request retry and timeout, and ICMP echo and error generation. Verified with ping, four hop traceroute, and HTTP retrieval across the routed network.</p>
-</div>
+  <section class="section">
+    <h2>Work</h2>
+    <div class="cards">
 
-<div class="project">
-<h3>[Game project goes here]</h3>
-<p class="meta">[engine] · [year]</p>
-<p>[Placeholder. This is the slot that matters most — a jam entry, a prototype, anything playable. Embed an itch.io widget or drop a 20 second gif above the description. Move this above the path tracer once it exists.]</p>
-</div>
+      <a class="card" href="/cse168-final/">
+        <h3>Volumetric Path Tracing</h3>
+        <p>A physically based renderer extended with participating media — fog, light shafts, and the sampling behind them. (note, writeup in progress)</p>
+        <p class="card-meta">C++, OpenMP</p>
+      </a>
 
-<hr>
+      <!--
+      Each new project drops in here as a copy of the block above:
 
-<h2>Experience</h2>
-<p><strong>Couch Heroes</strong> — Game Development Intern, Athens, Summer 2025.<br>
-Enemy AI including ranged attack behaviors in C++ and Blueprint, networked gameplay mechanics with replicated components, tooltip and HUD systems, and debugging melee abilities built on the Gameplay Ability System.</p>
+      <a class="card" href="/slug/">
+        <h3>Project name</h3>
+        <p>One line on what it is.</p>
+        <p class="card-meta">Tools</p>
+      </a>
+
+      Kept commented so the grid only ever shows things a visitor can click.
+      -->
+
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Experience</h2>
+    <div class="entry">
+      <h3>Couch Heroes <span class="entry-role">Game Development Intern</span></h3>
+      <p class="entry-meta">Athens, Summer 2025</p>
+      <p>Enemy AI including ranged attack behaviours, networked gameplay mechanics with replicated components, tooltip and HUD systems, and debugging melee abilities built on the Gameplay Ability System.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Contact</h2>
+    <ul class="contact">
+      <li><a href="/cv.pdf">CV</a></li>
+      <li><a href="https://github.com/Bisbouras">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/christos-enotiadis">LinkedIn</a></li>
+      <li><a href="mailto:bisbouras@gmail.com">Email</a></li>
+    </ul>
+  </section>
+
+</main>
 
 </body>
 </html>
-
