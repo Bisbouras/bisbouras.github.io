@@ -117,7 +117,7 @@ h1 span { display: block; }
   line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--ghost);
-  margin: 0.15em 0 0;
+  margin: 0.15em 0 0 -0.035em;
   user-select: none;
 }
 
@@ -208,10 +208,12 @@ h1 span { display: block; }
 }
 
 .card-meta {
-  margin-top: 0.9rem !important;
-  font-size: 0.85rem !important;
-  color: var(--beam) !important;
-  opacity: 0.72;
+  display: inline-block;
+  color: var(--dust-dim) !important;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 0.15rem 0.5rem;
+  opacity: 1;
 }
 
 /* Experience entries */
