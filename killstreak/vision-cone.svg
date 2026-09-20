@@ -1,0 +1,35 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 760 540' font-family='Archivo, DejaVu Sans, sans-serif'>
+<text x='380' y='30' text-anchor='middle' font-size='22' font-weight='bold' fill='#f0c98a'>WHAT A PLAYER ACTUALLY SEES</text>
+<text x='380' y='52' text-anchor='middle' font-size='14' fill='#8792a6'>hard-edged cone occlusion, plus an audio arc that is never centred on the truth</text>
+
+<g transform='translate(0,60)'>
+  <rect x='40' y='40' width='680' height='400' fill='#131f38' stroke='#2a3958' stroke-width='2'/>
+
+  <!-- vision cone, hard-clipped by the wall's shadow -->
+  <polygon points='140,400 720,120 720,340' fill='#f0c98a' fill-opacity='0.20'/>
+  <polygon points='430,140 541.5,40 720,40 720,160 430,280' fill='#131f38'/>
+
+  <!-- occluding wall -->
+  <rect x='430' y='140' width='24' height='140' fill='#9aa6bf' stroke='#c7cfdf' stroke-width='1'/>
+
+  <!-- audio arc: true bearing sits off-centre within the band -->
+  <path d='M 102 318.4 A 90 90 0 0 1 163.3 313.1' fill='none' stroke='#f0c98a' stroke-width='12' stroke-linecap='round' opacity='0.5'/>
+  <circle cx='157.6' cy='311.7' r='4.5' fill='#f0c98a' stroke='#0d1730' stroke-width='1'/>
+
+  <!-- player -->
+  <circle cx='140' cy='400' r='14' fill='#2f6fb0' stroke='#7fb2e6' stroke-width='2'/>
+  <text x='140' y='428' text-anchor='middle' font-size='12' fill='#9cc4ec'>you</text>
+
+  <!-- opponent, visible: inside the cone, past the wall's shadow -->
+  <circle cx='600' cy='360' r='15' fill='#d2d9e6' stroke='#8792a6' stroke-width='2'/>
+  <text x='600' y='390' text-anchor='middle' font-size='12' fill='#d2d9e6'>seen — inside the cone</text>
+
+  <!-- opponent, hidden: outside the cone entirely, not drawn in the real game -->
+  <circle cx='200' cy='100' r='15' fill='none' stroke='#5a6684' stroke-width='2' stroke-dasharray='5 5'/>
+  <text x='200' y='80' text-anchor='middle' font-size='12' fill='#5a6684'>hidden — not rendered</text>
+
+  <text x='300' y='300' font-size='13' font-weight='600' fill='#e9d3a3'>vision cone</text>
+  <text x='560' y='85' font-size='13' fill='#8792a6'>hard shadow</text>
+  <text x='40' y='300' font-size='13' fill='#e9d3a3'>audio arc</text>
+</g>
+</svg>
