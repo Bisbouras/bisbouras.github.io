@@ -35,15 +35,15 @@
 
   <p>Killstreak is a 1v1 shooter played from directly above. The camera shows the whole arena's geometry at all times, but the opponent, every gun on the ground, and every thrown weapon only render when they fall inside your vision cone, a slice of the map in front of wherever you are currently aiming. Checking a doorway means turning your gun away from whatever is in front of you right now.</p>
 
-  <p>Health and ammo do not decide rounds here, information does: knowing where the opponent is, and whether they know where you are. Every weapon past the starting pistol sits on the ground instead of in a loadout, so contesting it is most of what a round is about. There is no carryover between rounds and no progression, just a clean slate each time, which keeps the pacing arcade instead of building toward anything across a match. Standing still is the most accurate way to shoot, but the map is built so that never moving loses anyway.</p>
+  <p>It's a game of information: knowing where the opponent is, and whether they know where you are. No carryover between rounds, no progression, just a clean slate every time, which keeps the pacing arcade instead of building toward anything. Standing still is the most accurate way to shoot, but the map is built so that never moving loses anyway. Kills take real time too, the pistol runs about 1.5 to 2.5 seconds depending on range and the rifle roughly half that, long enough for whoever gets caught out to actually fight back.</p>
 
   <h2>Vision</h2>
 
-  <p>The camera is static and shows the whole arena at once, no scrolling, no zoom. Each player's view is rotated independently so their own spawn sits at the bottom and they always play upward, the way a fighting game keeps both players facing in. The flip only touches rendering and input. The simulation itself runs on one shared coordinate frame, which matters once the game is networked and both peers have to agree on what actually happened.</p>
+  <p>The camera holds one fixed shot of the whole arena. Each player's view still rotates independently though, so their own spawn sits at the bottom and they always play upward, the way a fighting game keeps both players facing in. That flip only touches rendering and input, since the simulation runs on one shared coordinate frame that both peers have to agree on.</p>
 
-  <p>The cone is built from Godot's 2D lighting system rather than a hand-rolled visibility check, a spotlight standing in for a sightline, with wall geometry acting as the light blocker. Hidden means not drawn at all: hard-edged occlusion, no soft shadows, no falloff, so a visible edge always means something real about the geometry and not a lighting artifact. Cone angle sits at 50 degrees, widened from 45 after early testing felt too tight.</p>
+  <p>The vision cone is what actually hides things. The opponent, a gun on the ground, a thrown weapon: all of it exists in the world, but none of it draws to your screen unless it falls inside your cone, and the edge is a hard cutoff rather than a fade, so what you see is exactly what your position and aim earn you.</p>
 
-  <p>Sound covers the gap the cone leaves. Footsteps outside your vision draw as an arc of possible bearings instead of an exact position, narrower for a loud sound like running, wider for a quiet one like walking. The true direction sits off centre within that arc on purpose, so a player can't just learn to aim at its middle. Reload, pickup, and gunfire events draw as a marker instead, since what matters there is what happened, not roughly where.</p>
+  <p>Sound covers the gap the cone leaves. Footsteps outside your vision draw as an arc of possible bearings instead of an exact position, narrower for a loud sound like running and wider for a quiet one like walking, with the true direction sitting off centre within that arc on purpose so you can't just aim at its middle. Reload, pickup, and gunfire events show up as a marker at roughly the right spot, since what matters there is that it happened.</p>
 
   <figure>
     <img src="vision-cone.svg" alt="Diagram of a player's vision cone hard-clipped by a wall's shadow, with a visible opponent inside the cone, a hidden opponent outside it, and an audio arc whose true bearing sits off-centre within the band">
@@ -52,15 +52,7 @@
 
   <h2>Ground weapons</h2>
 
-  <p>Every player starts with a pistol and nothing else. Every stronger weapon is a pickup placed by the map. The catch is that you can only ever hold one gun: taking a new one off the ground means throwing your current one away first, and with no mid-round respawns, losing that exchange can leave you weaponless for the rest of it. That cost is what makes holding an angle with the pistol a real alternative to walking into a contested pickup, rather than the game always forcing the issue.</p>
-
-  <p>Throwing isn't just a way to free your hands. A thrown weapon travels fast enough to do real damage on impact, bounces off walls and cover instead of stopping dead, and keeps whatever ammo was loaded when it left your hand. Throwing an empty pistol at someone and arming them with it is a legitimate, if desperate, way to lose.</p>
-
-  <p>Map geometry is the other lever. The Milestone 1 arena gates each side's rifle behind a wall that cycles solid and open on an 8 second period, telegraphed for about a second before it flips, so contesting the better weapon is a question of timing as much as positioning. It's a general tool available to any map rather than a rule baked into the system: a later map might use several walls on different timers, or none at all.</p>
-
-  <h2>Time to kill</h2>
-
-  <p>Time to kill is slower than a game like CS2 on purpose, and it drops further at range through a damage falloff curve. The pistol kills in about 1.5 seconds up close and 2.5 seconds at range, the rifle in 0.75 and 1.25. The reasoning is specific to the vision-cone format: with a fast kill, whoever spots the other player first simply wins, and every round collapses into who guessed the right angle, a coinflip dressed up as a gunfight. A longer TTK gives the player who gets caught out a real window to turn, dash, or break line of sight, which is also why reloading takes at least 1.5 seconds and is loud enough to give away your position, and why getting hit always shows a directional indicator toward the shooter, from any angle. An ambush should start a fight, not end it before it began.</p>
+  <p>Everyone starts with a pistol. Every stronger weapon is a pickup on the ground, and you can only hold one gun at a time, so taking a new one means throwing your current one away first, which can leave you weaponless for the rest of the round since nothing respawns mid-round. A thrown weapon does real damage on impact, bounces off walls and cover, and keeps whatever ammo it had loaded, so throwing an empty pistol at someone can literally arm them. The Milestone 1 arena gates its two rifles behind a wall that cycles solid and open every 8 seconds, so getting to one is a matter of timing as much as positioning.</p>
 
   <h2>Networking</h2>
 
