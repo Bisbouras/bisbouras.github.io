@@ -43,20 +43,20 @@
 
   <p>The cone is built from Godot's 2D lighting system rather than a hand-rolled visibility check, a spotlight standing in for a sightline, with wall geometry acting as the light blocker. Hidden means not drawn at all: hard-edged occlusion, no soft shadows, no falloff, so a visible edge always means something real about the geometry and not a lighting artifact. Cone angle sits at 50 degrees, widened from 45 after early testing felt too tight.</p>
 
-  <p>Sound covers the gap the cone leaves. Footsteps outside your vision draw as an arc of possible bearings instead of an exact position, narrower for a loud sound like running, wider for a quiet one like walking. The true direction sits off centre within that arc on purpose, so a player cannot just learn to aim at its middle. Reload, pickup, and gunfire events draw as a marker instead, since what matters there is what happened, not roughly where.</p>
+  <p>Sound covers the gap the cone leaves. Footsteps outside your vision draw as an arc of possible bearings instead of an exact position, narrower for a loud sound like running, wider for a quiet one like walking. The true direction sits off centre within that arc on purpose, so a player can't just learn to aim at its middle. Reload, pickup, and gunfire events draw as a marker instead, since what matters there is what happened, not roughly where.</p>
 
   <figure>
     <img src="vision-cone.svg" alt="Diagram of a player's vision cone hard-clipped by a wall's shadow, with a visible opponent inside the cone, a hidden opponent outside it, and an audio arc whose true bearing sits off-centre within the band">
-    <figcaption>One player's view of a single moment. The opponent past the wall is lit and rendered. The one outside the cone entirely does not exist on screen at all. The audio arc gives away that something is moving up there, but its true bearing sits off centre in the band, not at its middle, so the arc alone cannot be aimed at directly.</figcaption>
+    <figcaption>One player's view of a single moment. The opponent past the wall is lit and rendered. The one outside the cone entirely doesn't exist on screen at all. The audio arc gives away that something is moving up there, but its true bearing sits off centre in the band, not at its middle, so the arc alone can't be aimed at directly.</figcaption>
   </figure>
 
   <h2>Ground weapons</h2>
 
   <p>Every player starts with a pistol and nothing else. Every stronger weapon is a pickup placed by the map. The catch is that you can only ever hold one gun: taking a new one off the ground means throwing your current one away first, and with no mid-round respawns, losing that exchange can leave you weaponless for the rest of it. That cost is what makes holding an angle with the pistol a real alternative to walking into a contested pickup, rather than the game always forcing the issue.</p>
 
-  <p>Throwing is not just a way to free your hands. A thrown weapon travels fast enough to do real damage on impact, bounces off walls and cover instead of stopping dead, and keeps whatever ammo was loaded when it left your hand. Throwing an empty pistol at someone and arming them with it is a legitimate, if desperate, way to lose.</p>
+  <p>Throwing isn't just a way to free your hands. A thrown weapon travels fast enough to do real damage on impact, bounces off walls and cover instead of stopping dead, and keeps whatever ammo was loaded when it left your hand. Throwing an empty pistol at someone and arming them with it is a legitimate, if desperate, way to lose.</p>
 
-  <p>Map geometry is the other lever. The Milestone 1 arena gates each side's rifle behind a wall that cycles solid and open on an 8 second period, telegraphed for about a second before it flips, so contesting the better weapon is a question of timing as much as positioning. It is a general tool available to any map rather than a rule baked into the system: a later map might use several walls on different timers, or none at all.</p>
+  <p>Map geometry is the other lever. The Milestone 1 arena gates each side's rifle behind a wall that cycles solid and open on an 8 second period, telegraphed for about a second before it flips, so contesting the better weapon is a question of timing as much as positioning. It's a general tool available to any map rather than a rule baked into the system: a later map might use several walls on different timers, or none at all.</p>
 
   <h2>Time to kill</h2>
 
@@ -64,15 +64,15 @@
 
   <h2>Networking</h2>
 
-  <p>Milestone 1 runs networked over LAN from the start rather than as a local build retrofitted later, server-authoritative, with clients sending input and the server deciding what happened. Every piece of gameplay state, positions, health, ammo, even the map's own random numbers, was built from the beginning to be readable and restorable as a single snapshot, on a fixed timestep, with nothing hidden away in the scene tree. That discipline is what let internet play get pulled forward and actually work: adding client-side prediction for movement later was a matter of plugging a rollback library into an already-deterministic simulation, not restructuring one that was not.</p>
+  <p>Milestone 1 runs networked over LAN from the start rather than as a local build retrofitted later, server-authoritative, with clients sending input and the server deciding what happened. Every piece of gameplay state, positions, health, ammo, even the map's own random numbers, was built from the beginning to be readable and restorable as a single snapshot, on a fixed timestep, with nothing hidden away in the scene tree. That discipline is what let internet play get pulled forward and actually work: adding client-side prediction for movement later was a matter of plugging a rollback library into an already-deterministic simulation, not restructuring one that wasn't.</p>
 
-  <p>The one place prediction and server authority have to meet is a shot. Movement is predicted locally so it feels instant, but hit detection stays fully server-side and unpredicted, since a game built around sudden, close-range reveals is the last place you want a guessed outcome. Instead the server keeps a short buffered history of where the opponent actually was and checks a shot against their position rewound by the shooter's own round-trip time, so real internet latency does not turn a clean-looking shot into a miss against a target that had already moved by the time it arrived.</p>
+  <p>The one place prediction and server authority have to meet is a shot. Movement is predicted locally so it feels instant, but hit detection stays fully server-side and unpredicted, since a game built around sudden, close-range reveals is the last place you want a guessed outcome. Instead the server keeps a short buffered history of where the opponent actually was and checks a shot against their position rewound by the shooter's own round-trip time, so real internet latency doesn't turn a clean-looking shot into a miss against a target that had already moved by the time it arrived.</p>
 
   <h2>Where it stands</h2>
 
-  <p>Milestone 1, a LAN-playable prototype, is fully built: server-authoritative movement, vision-cone rendering and occlusion, hitscan combat, the ground-weapon pickup and throw loop, and round reset. Internet play was pulled forward ahead of schedule and runs through a dedicated host with client-side movement prediction and lag-compensated hit detection. The visual side of the audio system, the arcs and symbols, is built too. The actual sound has not been wired in yet.</p>
+  <p>Milestone 1, a LAN-playable prototype, is fully built: server-authoritative movement, vision-cone rendering and occlusion, hitscan combat, the ground-weapon pickup and throw loop, and round reset. Internet play was pulled forward ahead of schedule and runs through a dedicated host with client-side movement prediction and lag-compensated hit detection. The visual side of the audio system, the arcs and symbols, is built too. The actual sound hasn't been wired in yet.</p>
 
-  <p>What is left is the thing Milestone 1 exists to answer, and the part I am most curious about: a full playtest on two separate machines, to see whether contesting weapons under vision cones produces real decisions or just two players holding angles.</p>
+  <p>What's left is the thing Milestone 1 exists to answer, and the part I'm most curious about: a full playtest on two separate machines, to see whether contesting weapons under vision cones produces real decisions or just two players holding angles.</p>
 
   <h2>What's next</h2>
 
